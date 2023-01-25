@@ -3,8 +3,7 @@
 <a href="https://speakerdeck.com/michaelisvy/spring-petclinic-sample-application">See the presentation here</a>
 
 # DEVOPS WorkFlow
-![image](https://user-images.githubusercontent.com/116321339/214478564-519f3448-349c-4442-b86f-4484defb6813.png)
-
+https://user-images.githubusercontent.com/116321339/214488060-2eab52c5-4b09-49ce-9a08-c21336eb2452.png
 
 ## Running petclinic locally
 Petclinic is a [Spring Boot](https://spring.io/guides/gs/spring-boot) application built using [Maven](https://spring.io/guides/gs/maven/). You can build a jar file and run it from the command line:
