@@ -1,0 +1,17 @@
+pipeline {
+	agent any
+    stages {
+        stage('Build on k8 ') {
+            steps {           
+                        sh 'pwd'
+                        sh 'cp -R helm/* .'
+		            sh 'ls -ltr'
+                        sh 'pwd'
+                        //sh '/usr/local/bin/helm upgrade --install petclinic-app petclinic  --set image.repository=registry.hub.docker.com/kavyapallamreddy/petclinic --set image.tag=5'
+                        sh '/usr/local/bin/helm upgrade --install petclinic-app  --set image.repository=docker.withRegistry("https://" + 268360024445.dkr.ecr.us-west-2.amazonaws.com/my-docker-repo:latest, ecr:us-west-2:268360024445) {
+                        sh "docker pull 268360024445.dkr.ecr.us-west-2.amazonaws.com/my-docker-repo:latest" 
+			}
+            }           
+        }
+    }
+}
