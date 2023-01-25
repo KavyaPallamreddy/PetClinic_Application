@@ -95,8 +95,6 @@ version. Otherwise, run the application by right clicking on the `PetClinicAppli
 Visit [http://localhost:8080](http://localhost:8080) in your browser.
 
 
-## WorkFlow
-![image](https://user-images.githubusercontent.com/116321339/214462276-2470a1a5-bb5b-4276-bfc9-82031377755e.png)
 
 
 
