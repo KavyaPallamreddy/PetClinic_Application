@@ -1,6 +1,6 @@
 pipeline {
          agent any
-          stages {
+           stages {
              stage('Build on k8 ') {
                  steps {           
                         sh 'pwd'
@@ -8,7 +8,7 @@ pipeline {
 		        sh 'ls -ltr'
                         sh 'pwd'
                         //sh '/usr/local/bin/helm upgrade --install petclinic-app petclinic  --set image.repository=registry.hub.docker.com/kavyapallamreddy/petclinic --set image.tag=5'
-                        
+                        sh "aws ecr get-login-password --region us-west-2 | docker login --username AWS --password-stdin 268360024445.dkr.ecr.us-west-2.amazonaws.com"
                         sh "/usr/local/bin/helm upgrade docker pull 268360024445.dkr.ecr.us-west-2.amazonaws.com/amazonlinux:latest" 
 			}
             }           
