@@ -14,20 +14,20 @@ I created a pet-clinic project to automate the end to end process of creating th
 
 
 
-o Using infrastructure as code tools like Terraform to create all the necessary AWS infrastructure like private VPC, Subnets, AWS EC2 instances, AWS ECR, AWS EKS Kubernetes Cluster etc.
-o Create CI/CD pipelines to automate the build, and deployment process.
-o Containerizing the application and deploying it on AWS EKS Kubernetes Cluster.
+##1. Using infrastructure as code tools like Terraform to create all the necessary AWS infrastructure like private VPC, Subnets, AWS EC2 instances, AWS ECR, AWS EKS Kubernetes Cluster etc.
+##2. Create CI/CD pipelines to automate the build, and deployment process.
+##3. Containerizing the application and deploying it on AWS EKS Kubernetes Cluster.
 
 
-•Tools:
-o Linux OS.
-o Git and GitHub for source code management.
-o Amazon Web Services (AWS) Cloud.
-o Terraform (Infrastructure as Code tool) to create, maintain, and scale infrastructure.
-o Maven to build the application.
-o Jenkins for CI/CD.
-o Docker and AWS ECR to containerize the application as a docker image.
-o Helm to deploy and scale the application on AWS EKS Kubernetes Cluster
+#Tools:
+##1.Linux OS.
+##2.Git and GitHub for source code management.
+##3.Amazon Web Services (AWS) Cloud.
+##4.Terraform (Infrastructure as Code tool) to create, maintain, and scale infrastructure.
+##5.Maven to build the application.
+##6.Jenkins for CI/CD.
+##7.Docker and AWS ECR to containerize the application as a docker image.
+##8.Helm to deploy and scale the application on AWS EKS Kubernetes Cluster
 
 
 # Deployment & Services - Architecture
