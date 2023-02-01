@@ -1,6 +1,6 @@
 # PetClinic_Application
 
-
+I created a pet-clinic project to automate the end to end process of creating the AWS infrastructure, continuously integrate and deploy the application to AWS EKS Kubernetes Cluster
 
 # Spring PetClinic Sample Application
 ## Understanding the Spring Petclinic application with a few diagrams
@@ -13,10 +13,34 @@
 ![image](https://user-images.githubusercontent.com/116321339/216088845-afbbcc7a-13f6-4f39-8ed3-a73adb08c181.png)
 
 
-# Deployment & Services - Architecture![image](https://user-images.githubusercontent.com/116321339/216130715-e4c45481-e04f-495e-bea6-6eed45f1282e.png)
+
+o Using infrastructure as code tools like Terraform to create all the necessary AWS infrastructure like private VPC, Subnets, AWS EC2 instances, AWS ECR, AWS EKS Kubernetes Cluster etc.
+o Create CI/CD pipelines to automate the build, and deployment process.
+o Containerizing the application and deploying it on AWS EKS Kubernetes Cluster.
+
+
+•Tools:
+o Linux OS.
+o Git and GitHub for source code management.
+o Amazon Web Services (AWS) Cloud.
+o Terraform (Infrastructure as Code tool) to create, maintain, and scale infrastructure.
+o Maven to build the application.
+o Jenkins for CI/CD.
+o Docker and AWS ECR to containerize the application as a docker image.
+o Helm to deploy and scale the application on AWS EKS Kubernetes Cluster
+
+
+# Deployment & Services - Architecture
 
 
 ![image](https://user-images.githubusercontent.com/116321339/216130623-770c78ae-0e6f-4bf0-9737-7e91e56daa59.png)
+
+
+
+
+
+
+
 
 
 
