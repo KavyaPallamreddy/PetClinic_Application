@@ -13,6 +13,13 @@
 ![image](https://user-images.githubusercontent.com/116321339/216088845-afbbcc7a-13f6-4f39-8ed3-a73adb08c181.png)
 
 
+# Deployment & Services - Architecture![image](https://user-images.githubusercontent.com/116321339/216130715-e4c45481-e04f-495e-bea6-6eed45f1282e.png)
+
+
+![image](https://user-images.githubusercontent.com/116321339/216130623-770c78ae-0e6f-4bf0-9737-7e91e56daa59.png)
+
+
+
 
 ## Running petclinic locally
 Petclinic is a [Spring Boot](https://spring.io/guides/gs/spring-boot) application built using [Maven](https://spring.io/guides/gs/maven/). You can build a jar file and run it from the command line:
