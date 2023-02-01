@@ -10,7 +10,7 @@
 
 # DEVOPS WORKFLOW
 
-![image](https://user-images.githubusercontent.com/116321339/214612094-ea03b5f2-8857-4cd3-ada2-42e307dea266.png)
+![image](https://user-images.githubusercontent.com/116321339/216088845-afbbcc7a-13f6-4f39-8ed3-a73adb08c181.png)
 
 
 
