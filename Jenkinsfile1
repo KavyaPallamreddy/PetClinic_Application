@@ -1,13 +1,13 @@
 pipeline {
 	agent any
 	  tools {
-                 maven 'maven3'
+                 maven 'Maven'
                  jdk 'JDK11'
                }
 	  environment {
 		AWS_ACCOUNT_ID="268360024445"
 		AWS_DEFAULT_REGION="us-west-2"
-		IMAGE_REPO_NAME="my-docker-repo"
+		IMAGE_REPO_NAME="PetClinic-Application"
 		IMAGE_TAG="latest"
 		REPOSITORY_URI = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}"
 	            }
@@ -41,7 +41,7 @@ pipeline {
                    steps {
                       script { 
 			  //dockerImage = docker build -t "${IMAGE_REPO_NAME} ."
-			 sh "docker build -t my-docker-repo ./docker"
+			 sh "docker build -t PetClinic-Application ./docker"
 			   }                     
                     }
               }
@@ -51,8 +51,8 @@ pipeline {
 		       script {
 			     //sh "docker tag ${IMAGE_REPO_NAME}:${IMAGE_TAG} ${REPOSITORY_URI}:$IMAGE_TAG"
 			     //sh "docker push ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}:${IMAGE_TAG}"
-			       sh "docker tag my-docker-repo:latest 268360024445.dkr.ecr.us-west-2.amazonaws.com/my-docker-repo:latest"
-			       sh "docker push 268360024445.dkr.ecr.us-west-2.amazonaws.com/my-docker-repo:latest"
+			       sh "docker tag PetClinic-Application:latest 268360024445.dkr.ecr.us-west-2.amazonaws.com/PetClinic-Application:latest"
+			       sh "docker push 268360024445.dkr.ecr.us-west-2.amazonaws.com/PetClinic-Application:latest"
 			       }
 			    }
 			}
