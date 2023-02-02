@@ -10,7 +10,8 @@ I created a pet-clinic project to automate the end to end process of creating th
 
 # DEVOPS WORKFLOW
 
-![image](https://user-images.githubusercontent.com/116321339/216088845-afbbcc7a-13f6-4f39-8ed3-a73adb08c181.png)
+![image](https://user-images.githubusercontent.com/116321339/216475312-2365a4fc-7d7a-4481-8551-58cbd8dda59d.png)
+
 
 
 
