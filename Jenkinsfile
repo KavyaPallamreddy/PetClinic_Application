@@ -19,7 +19,7 @@ pipeline {
 			   
 		       script {
 			     //sh "aws ecr get-login-password — region ${AWS_DEFAULT_REGION} | docker login — username AWS — password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com"
-			       sh "docker login -u AWS -p $("aws ecr get-login-password --region us-west-2) 268360024445.dkr.ecr.us-west-2.amazonaws.com"
+			       sh "aws ecr get-login-password --region us-west-2 | docker login --username AWS --password-stdin 268360024445.dkr.ecr.us-west-2.amazonaws.com"
 			       
 		       }
 
