@@ -33,12 +33,6 @@ I created a pet-clinic project to automate the end to end process of creating th
 #### 5. Used Terraform  to create private VPC, Subnets, AWS EKS Kubernetes Cluster and install Helm Provider
 #### 6. Used Helm to Continuously Deploy and Scale the application on AWS EKS Kubernetes Cluster
  
-## Project structure
- 
-* Dockerfile - Contains commands to build and run the docker image
-* Jenkinsfile - Contains the pipeline script which will help in building, testing and deploying the application
-* deployment.yaml - [Kubernetes deployment](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/) file for the application
-* service.yaml - [Kubernetes service](https://kubernetes.io/docs/concepts/services-networking/service/) file for the application
 
 
 
@@ -47,10 +41,7 @@ I created a pet-clinic project to automate the end to end process of creating th
 
 
 
-### 1. Using infrastructure as code tools like Terraform to create all the necessary AWS infrastructure like private VPC, Subnets, AWS EC2 Jenkins-Server, AWS ECR, AWS EKS Kubernetes Cluster,Helm Provider, Worker nodes.
-### 2. Using Ansible to install the jenkins,docker,maven,java on AWS EC2 Jenkins-Server
-### 2. Create CI/CD pipelines to automate the build, and deployment process.
-### 3. Containerizing the application and deploying it on AWS EKS Kubernetes Cluster.
+
 
 
 
