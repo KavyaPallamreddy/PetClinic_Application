@@ -18,7 +18,7 @@ I created a pet-clinic project to automate the end to end process of creating th
 #### 4.Build Artifacts : AWS ECR 
 #### 5.Containerization : Docker
 #### 6.Infrastructure as Code tool : Terraform
-#### 7.Continouous Deployment : Helm to deploy and scale the application on AWS EKS Kubernetes Cluster
+#### 7.Continuous Deployment : Helm to deploy and scale the application on AWS EKS Kubernetes Cluster
 
 
 # DEVOPS WORKFLOW
@@ -26,14 +26,15 @@ I created a pet-clinic project to automate the end to end process of creating th
 ![image](https://user-images.githubusercontent.com/116321339/216475312-2365a4fc-7d7a-4481-8551-58cbd8dda59d.png)
  
 ## Steps 
-### 1. git clone https://github.com/spring-projects/spring-petclinic.git
-2. a.Create a EC2-Instance with the of jenkins Server on AWS using terraform and Install Java, jenkins, 
+#### 1. git clone https://github.com/spring-projects/spring-petclinic.git
+#### 2. Used Terraform (infrastructure as code) to create VPC, Subnets, SecurityGroups, AWS EC2 (Jenkins_Server) and AWS ECR
+#### 3. Integrated Ansible with Terraform to build environment on AWS EC2(Jenkins_Server) and installed the following packages (Java,Jenkins,Docker,Maven) 
+#### 4. Used Jenkins Continuous Integration pipeline to build and containerize the petclinic-application and pushed it to AWS ECR.
+#### 5. Used Terraform  to create private VPC, Subnets, AWS EKS Kubernetes Cluster and install Helm Provider
+#### 6. Used Helm to Continuously Deploy and Scale the application on AWS EKS Kubernetes Cluster
  
 ## Project structure
  
-* app.py - Flask application which will print "Hello world" when you run it
-* test.py - Test cases for the application
-* requirements.txt - Contains dependencies for the project
 * Dockerfile - Contains commands to build and run the docker image
 * Jenkinsfile - Contains the pipeline script which will help in building, testing and deploying the application
 * deployment.yaml - [Kubernetes deployment](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/) file for the application
