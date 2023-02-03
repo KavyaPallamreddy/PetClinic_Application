@@ -37,19 +37,11 @@ I created a pet-clinic project to automate the end to end process of creating th
 ![image](https://user-images.githubusercontent.com/116321339/216130623-770c78ae-0e6f-4bf0-9737-7e91e56daa59.png)
 
 ## Running petclinic locally
-Petclinic is a [Spring Boot](https://spring.io/guides/gs/spring-boot) application built using [Maven](https://spring.io/guides/gs/maven/). You can build a jar file and run it from the command line:
+
 
 You can then access petclinic here: http://localhost:31283/
 
-
-
-## In case you find a bug/suggested improvement for Spring Petclinic
-Our issue tracker is available here: https://github.com/spring-projects/spring-petclinic/issues
-
 <img width="1042" alt="petclinic-screenshot" src="https://cloud.githubusercontent.com/assets/838318/19727082/2aee6d6c-9b8e-11e6-81fe-e889a5ddfded.png">
-
-
-
 
 # License
 
