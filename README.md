@@ -1,16 +1,47 @@
 # PetClinic_Application
 
-I created a pet-clinic project to automate the end to end process of creating the AWS infrastructure, continuously integrate and deploy the application to AWS EKS Kubernetes Cluster
 
-# Spring PetClinic Sample Application
 ## Understanding the Spring Petclinic application with a few diagrams
 
 
 <a href="https://speakerdeck.com/michaelisvy/spring-petclinic-sample-application">See the presentation here</a>
 
+I created a pet-clinic project to automate the end to end process of creating the AWS infrastructure, continuously integrate and deploy the application to AWS EKS Kubernetes Cluster
+
+
+## Prerequisites
+ 
+#### 1.Linux Machine
+#### 2.Source code management : Git and GitHub
+#### 3.Continuous Integration : Jenkins 
+#### 3.Build tool : Maven
+#### 4.Build Artifacts : AWS ECR 
+#### 5.Containerization : Docker
+#### 6.Infrastructure as Code tool : Terraform
+#### 7.Continouous Deployment : Helm to deploy and scale the application on AWS EKS Kubernetes Cluster
+
+
 # DEVOPS WORKFLOW
 
 ![image](https://user-images.githubusercontent.com/116321339/216475312-2365a4fc-7d7a-4481-8551-58cbd8dda59d.png)
+ 
+## Steps 
+### 1. git clone https://github.com/spring-projects/spring-petclinic.git
+2. a.Create a EC2-Instance with the of jenkins Server on AWS using terraform and Install Java, jenkins, 
+ 
+## Project structure
+ 
+* app.py - Flask application which will print "Hello world" when you run it
+* test.py - Test cases for the application
+* requirements.txt - Contains dependencies for the project
+* Dockerfile - Contains commands to build and run the docker image
+* Jenkinsfile - Contains the pipeline script which will help in building, testing and deploying the application
+* deployment.yaml - [Kubernetes deployment](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/) file for the application
+* service.yaml - [Kubernetes service](https://kubernetes.io/docs/concepts/services-networking/service/) file for the application
+
+
+
+
 
 
 
@@ -21,15 +52,8 @@ I created a pet-clinic project to automate the end to end process of creating th
 ### 3. Containerizing the application and deploying it on AWS EKS Kubernetes Cluster.
 
 
-# Tools:
-### 1.Linux OS.
-### 2.Git and GitHub for source code management.
-### 3.Amazon Web Services (AWS) Cloud.
-### 4.Terraform (Infrastructure as Code tool) to create, maintain, and scale infrastructure.
-### 5.Maven to build the application.
-### 6.Jenkins for CI/CD.
-### 7.Docker and AWS ECR to containerize the application as a docker image.
-### 8.Helm to deploy and scale the application on AWS EKS Kubernetes Cluster
+
+ 
 
 
 # Deployment & Services - Architecture
