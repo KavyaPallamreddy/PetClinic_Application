@@ -44,7 +44,7 @@ pipeline {
                    steps {
                       script { 
 			  //dockerImage = docker build -t "${IMAGE_REPO_NAME} ."
-			 sh "docker build -t petclinic-application . ./docker"
+			 sh "docker build -t petclinic-application ./docker"
 			   }                     
                     }
               }
