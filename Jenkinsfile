@@ -19,8 +19,8 @@ pipeline {
 			   
 		       script {
 			      
-			     //sh "aws ecr get-login-password — region ${AWS_DEFAULT_REGION} | docker login — username AWS — password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com"
-			       sh "aws ecr get-login-password --region us-west-2 | docker login --username AWS --password-stdin 268360024445.dkr.ecr.us-west-2.amazonaws.com"
+			      sh "aws ecr get-login-password --region ${AWS_DEFAULT_REGION} | docker login --username AWS --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com"
+			       
 			       
 		       }
 
@@ -43,8 +43,8 @@ pipeline {
               stage('Build docker image') {
                    steps {
                       script { 
-			  //dockerImage = docker build -t "${IMAGE_REPO_NAME} ."
-			 sh "docker build -t java-app ./docker"
+			 sh "docker build -t ${IMAGE_REPO_NAME} ./docker"
+			
 			   }                     
                     }
               }
@@ -52,10 +52,9 @@ pipeline {
 	      stage('Pushing to ECR') {
 		   steps{
 		       script {
-			     //sh "docker tag ${IMAGE_REPO_NAME}:${IMAGE_TAG} ${REPOSITORY_URI}:$IMAGE_TAG"
-			     //sh "docker push ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}:${IMAGE_TAG}"
-			       sh "docker tag java-app:latest 268360024445.dkr.ecr.us-west-2.amazonaws.com/java-app:latest"
-			       sh "docker push 268360024445.dkr.ecr.us-west-2.amazonaws.com/java-app:latest"
+			       sh "docker tag ${IMAGE_REPO_NAME}:${IMAGE_TAG} ${REPOSITORY_URI}:$IMAGE_TAG"
+			       sh "docker push ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}:${IMAGE_TAG}"
+			       
 			       }
 			    }
 			}
