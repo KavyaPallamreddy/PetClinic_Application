@@ -32,6 +32,10 @@ I created a pet-clinic project to automate the end to end process of creating th
 #### 4. Used Jenkins Continuous Integration pipeline to build and containerize the petclinic-application and pushed it to AWS ECR.
 #### 5. Used Terraform  to create private VPC, Subnets, AWS EKS Kubernetes Cluster and install Helm Provider
 #### 6. Used Helm to Continuously Deploy and Scale the application on AWS EKS Kubernetes Cluster
+
+# Jenkins-server - Architecture 
+
+
  
  # Deployment & Services - Architecture
 ![image](https://user-images.githubusercontent.com/116321339/216130623-770c78ae-0e6f-4bf0-9737-7e91e56daa59.png)
