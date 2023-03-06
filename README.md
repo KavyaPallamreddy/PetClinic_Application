@@ -62,7 +62,7 @@ I created a pet-clinic project to automate the end to end process of creating th
 
 ## Terraform :
 ### a. Use Terraform to create to Helm provider 
-### b. Use Helm to create a custom chart that deploys the SPA to EKS. The Helm chart should include the required Kubernetes resources, such as Deployment and Service, to run the SPA on EKS.
+### b. Use Helm to create a custom chart that deploys the Petclinic to EKS. The Helm chart should include the required Kubernetes resources, such as Deployment and Service, to run the Petclinic on EKS.
 ### c. Use Terraform to deploy the custom Helm chart to EKS.
  
 ## Monitoring:
