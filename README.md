@@ -37,13 +37,13 @@ I created a pet-clinic project to automate the end to end process of creating th
 ### c. Use Terraform to create an AWS ECR repository to store Docker images.
 ### d. Use Terraform to create an AWS EKS cluster to run the SPA.
 ### e. Use Terraform to create a S3 bucket for store the Terraform statefile and DynamoDB table for statelocking
+### Deployment & Services - Architecture
+![image](https://user-images.githubusercontent.com/116321339/216130623-770c78ae-0e6f-4bf0-9737-7e91e56daa59.png)
 
 ## Ansible:
 
 ### a. Integrate Ansible with Terraform to build the environment on the AWS EC2 instance (Jenkins_Server).
-### Jenkins-server - Architecture 
-### Deployment & Services - Architecture
-![image](https://user-images.githubusercontent.com/116321339/216130623-770c78ae-0e6f-4bf0-9737-7e91e56daa59.png)
+
 ### b. Install the following packages using Ansible playbook:
 ####    1. Java
 ####    2. Jenkins
