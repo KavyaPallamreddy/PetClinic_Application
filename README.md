@@ -26,13 +26,58 @@ I created a pet-clinic project to automate the end to end process of creating th
 ![image](https://user-images.githubusercontent.com/116321339/216475312-2365a4fc-7d7a-4481-8551-58cbd8dda59d.png)
  
 ## Steps 
-#### 1. git clone https://github.com/spring-projects/spring-petclinic.git
+#### 1.  Create a new repository in GitHub for your perclinic code and push your code to it. 
+         git clone https://github.com/spring-projects/spring-petclinic.git
 #### 2. Used Terraform (infrastructure as code) to create VPC, Subnets, SecurityGroups, AWS EC2 (Jenkins_Server) and AWS ECR
 #### 3. Integrated Ansible with Terraform to build environment on AWS EC2(Jenkins_Server) and installed the following packages (Java,Jenkins,Docker,Maven) 
 #### 4. Used Jenkins Continuous Integration pipeline to build and containerize the petclinic-application and pushed it to AWS ECR.
 #### 5. Used Terraform  to create private VPC, Subnets, AWS EKS Kubernetes Cluster and install Helm Provider
 #### 6. Used Helm to Continuously Deploy and Scale the application on AWS EKS Kubernetes Cluster
 
+
+
+
+
+Git Setup:
+a. Create a new repository on GitHub to store the PetClinic code.
+b. Clone the repository  git clone https://github.com/spring-projects/spring-petclinic.git  to your local development environment.
+
+
+Infrastructure setup using Terraform:
+a. Use Terraform to create a new VPC, subnets, and security groups in AWS.
+b. Use Terraform to create an AWS EC2 instance to host the Jenkins Server.
+c. Use Terraform to create an AWS ECR repository to store Docker images.
+d. Use Terraform to create an AWS EKS cluster to run the SPA.
+e. Use Terraform to create a S3 bucket for store the Terraform statefile and DynamoDB table for statelocking
+
+Ansible:
+
+a. Integrate Ansible with Terraform to build the environment on the AWS EC2 instance (Jenkins_Server).
+b. Install the following packages using Ansible playbook:
+    1. Java
+    2. Jenkins
+    3. Docker
+    4. Maven
+
+Jenkins:
+a. Log in to the Jenkins server and configure Jenkins by installing and configuring the required plugins, such as the Docker plugin.
+
+b. Create a Jenkins pipeline that includes the following stages:
+
+   1. Checkout the SPA code from the GitHub repository using Git.
+   2. Build the Docker image of the SPA using the Dockerfile in the repository.
+   3. Push the Docker image to the AWS ECR repository.
+
+
+Terraform :
+a. Use Terraform to create 
+Use Helm to create a custom chart that deploys the SPA to EKS.
+Use Terraform to deploy the custom Helm chart to EKS.
+   4. Use Helm to deploy the SPA to AWS EKS cluster. The Helm chart should include the required Kubernetes resources, such as Deployment and Service, to run the SPA on EKS.
+
+Monitoring:
+a. Use Prometheus to collect metrics from the SPA.
+b. Set up Grafana to visualize the collected metrics.
 # Jenkins-server - Architecture 
 
 
