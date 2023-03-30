@@ -6,17 +6,6 @@ resource "aws_instance" "jenkins_server" {
   vpc_security_group_ids = [ aws_security_group.dev-vpc-sg.id ]
   
   iam_instance_profile = "${aws_iam_instance_profile.jenkins_instance_profile.name}"
-  user_data = <<-EOF
-    #!/bin/bash
-    echo 'JAVA_HOME=/usr/lib/jvm/java-11-openjdk-11.0.16.0.8-1.amzn2.0.1.x86_64' >> ~/.bash_profile
-    echo 'export JAVA_HOME' >> ~/.bash_profile
-    echo 'M2_HOME=/opt/apache-maven-3.8.7' >> ~/.bash_profile
-    echo 'M2=/opt/apache-maven-3.8.7/bin' >> ~/.bash_profile
-    echo 'export M2_HOME' >> ~/.bash_profile
-    echo 'export M2' >> ~/.bash_profile
-    echo 'PATH=$JAVA_HOME:$M2_HOME:$M2' >> ~/.bash_profile
-    source ~/.bash_profile
-    EOF
     
   
   
@@ -39,6 +28,9 @@ resource "aws_instance" "jenkins_server" {
           "git clone https://github.com/KavyaPallamreddy/jenkins_setup_ansible.git /tmp/Jenkins_ansibe_role",
           
           "ansible-playbook  /tmp/Jenkins_ansibe_role/playbook.yaml",
+          "ansible localhost -m shell -a 'cp /tmp/Jenkins_ansibe_role/jenkins_setup/.bash_profile /root' -b",
+          
+          "ansible localhost -m shell -a 'source ~/.bash_profile' -b",
          
           
 
