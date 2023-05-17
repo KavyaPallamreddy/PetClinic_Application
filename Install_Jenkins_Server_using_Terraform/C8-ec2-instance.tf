@@ -23,7 +23,7 @@ resource "aws_instance" "jenkins_server" {
   
   provisioner "remote-exec" {
         inline = [
-          "sudo amazon-linux-extras install ansible2 -y",
+          "grep "ID=ubuntu" /etc/os-release && sudo apt install ansible -y || grep 'ID="amzn"' /etc/os-release && sudo amazon-linux-extras install ansible2 -y",
           "sudo yum install git -y",
           "git clone https://github.com/KavyaPallamreddy/jenkins_setup_ansible.git /tmp/Jenkins_ansibe_role",
           "ansible-playbook  /tmp/Jenkins_ansibe_role/playbook.yaml",
