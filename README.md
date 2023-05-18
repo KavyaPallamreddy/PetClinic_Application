@@ -7,8 +7,8 @@
 <a href="https://speakerdeck.com/michaelisvy/spring-petclinic-sample-application">See the presentation here</a>
 
 I created a pet-clinic project to automate the end to end process of creating the AWS infrastructure, continuously integrate and deploy the application to AWS EKS Kubernetes Cluster
-![devops drawio](https://github.com/KavyaPallamreddy/PetClinic_Application/assets/116321339/cc6a81b0-d251-4d20-8155-af89105fa92f)
-
+## DEVOPS Continuous integration and Continuous deployment
+ ![devops drawio (2)](https://github.com/KavyaPallamreddy/PetClinic_Application/assets/116321339/60d6c147-263f-49ab-be28-eba89f61741c)
 
 ## Prerequisites
 Here are the step-by-step details to set up an end-to-end Jenkins pipeline for a Java application using SonarQube, Argo CD, Helm, and Kubernetes:
