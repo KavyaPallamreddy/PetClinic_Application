@@ -7,6 +7,7 @@
 <a href="https://speakerdeck.com/michaelisvy/spring-petclinic-sample-application">See the presentation here</a>
 
 I created a pet-clinic project to automate the end to end process of creating the AWS infrastructure, continuously integrate and deploy the application to AWS EKS Kubernetes Cluster
+![devops drawio](https://github.com/KavyaPallamreddy/PetClinic_Application/assets/116321339/cc6a81b0-d251-4d20-8155-af89105fa92f)
 
 
 ## Prerequisites
