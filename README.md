@@ -10,22 +10,20 @@ I created a pet-clinic project to automate the end to end process of creating th
 
 
 ## Prerequisites
- 
-#### 1.Linux Machine
-#### 2.Source code management : Git and GitHub
-#### 3.Continuous Integration : Jenkins 
-#### 3.Build tool : Maven
-#### 4.Build Artifacts : AWS ECR 
-#### 5.Containerization : Docker
-#### 6.Infrastructure as Code tool : Terraform
-#### 7.Continuous Deployment : Helm to deploy and scale the application on AWS EKS Kubernetes Cluster
+Here are the step-by-step details to set up an end-to-end Jenkins pipeline for a Java application using SonarQube, Argo CD, Helm, and Kubernetes:
 
+### Prerequisites:
 
-# DEVOPS WORKFLOW
+#### 1. PetClinic_Application code hosted on a Git repository
+#### 2. Jenkins server
+#### 3. Kubernetes cluster
+#### 4. Helm package manager
+#### 5. Argo CD
+#### 6. Terraform ( To create Jenkins Server on AWS)
+#### 7. ansible ( To install jenkins, java, docker and maven on jenkins server)
 
-![image](https://user-images.githubusercontent.com/116321339/216475312-2365a4fc-7d7a-4481-8551-58cbd8dda59d.png)
- 
-# Steps
+# Steps for Continous integration 
+
 ## Git Setup:
 ### a. Create a new repository on GitHub to store the PetClinic code.
 ### b. Clone the repository **git clone https://github.com/spring-projects/spring-petclinic.git**  to your local development environment.
@@ -37,8 +35,7 @@ I created a pet-clinic project to automate the end to end process of creating th
 ### c. Use Terraform to create an AWS ECR repository to store Docker images.
 ### d. Use Terraform to create an AWS EKS cluster to run the SPA.
 ### e. Use Terraform to create a S3 bucket for store the Terraform statefile and DynamoDB table for statelocking
-### Deployment & Services - Architecture
-![image](https://user-images.githubusercontent.com/116321339/216130623-770c78ae-0e6f-4bf0-9737-7e91e56daa59.png)
+
 
 ## Ansible:
 
@@ -52,6 +49,55 @@ I created a pet-clinic project to automate the end to end process of creating th
 
 ## Jenkins:
 ### a. Log in to the Jenkins server and configure Jenkins by installing and configuring the required plugins, such as the Docker plugin.
+
+#### 1. Install the necessary Jenkins plugins:
+        1.1 Git plugin
+        1.2 Maven Integration plugin
+        1.3 Pipeline plugin
+        1.4 Kubernetes Continuous Deploy plugin
+
+2. Create a new Jenkins pipeline:
+   2.1 In Jenkins, create a new pipeline job and configure it with the Git repository URL for the Java application.
+   2.2 Add a Jenkinsfile to the Git repository to define the pipeline stages.
+
+3. Define the pipeline stages:
+    Stage 1: Checkout the source code from Git.
+    Stage 2: Build the Java application using Maven.
+    Stage 3: Run unit tests using JUnit and Mockito.
+    Stage 4: Run SonarQube analysis to check the code quality.
+    Stage 5: Package the application into a JAR file.
+    Stage 6: Deploy the application to a test environment using Helm.
+    Stage 7: Run user acceptance tests on the deployed application.
+    Stage 8: Promote the application to a production environment using Argo CD.
+
+4. Configure Jenkins pipeline stages:
+    Stage 1: Use the Git plugin to check out the source code from the Git repository.
+    Stage 2: Use the Maven Integration plugin to build the Java application.
+    Stage 3: Use the JUnit and Mockito plugins to run unit tests.
+    Stage 4: Use the SonarQube plugin to analyze the code quality of the Java application.
+    Stage 5: Use the Maven Integration plugin to package the application into a JAR file.
+    Stage 6: Use the Kubernetes Continuous Deploy plugin to deploy the application to a test environment using Helm.
+    Stage 7: Use a testing framework like Selenium to run user acceptance tests on the deployed application.
+    Stage 8: Use Argo CD to promote the application to a production environment.
+    
+
+5. Set up Argo CD:
+    Install Argo CD on the Kubernetes cluster.
+    Set up a Git repository for Argo CD to track the changes in the Helm charts and Kubernetes manifests.
+    Create a Helm chart for the Java application that includes the Kubernetes manifests and Helm values.
+    Add the Helm chart to the Git repository that Argo CD is tracking.
+
+6. Configure Jenkins pipeline to integrate with Argo CD:
+   6.1 Add the Argo CD API token to Jenkins credentials.
+   6.2 Update the Jenkins pipeline to include the Argo CD deployment stage.
+
+7. Run the Jenkins pipeline:
+   7.1 Trigger the Jenkins pipeline to start the CI/CD process for the Java application.
+   7.2 Monitor the pipeline stages and fix any issues that arise.
+This end-to-end Jenkins pipeline will automate the entire CI/CD process for a Java application, from code checkout to production deployment, using popular tools like SonarQube, Argo CD, Helm, and Kubernetes.
+ 
+ 
+
 
 ### b. Create a Jenkins pipeline that includes the following stages:
 
