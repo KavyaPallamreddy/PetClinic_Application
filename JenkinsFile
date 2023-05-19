@@ -33,9 +33,9 @@ pipeline {
 	     stage('Pushing to dockerhub') {
 		   steps{
 		       script {
-			       docker.withRegistry('https://registry.hub.docker.com', 'dockerhub')
-             docker push pet-app:v1
-             docker run -d -p 8082:8080 -t pet-app:v1
+			       def customImage = docker.build('kavyapallamreddy/petclinic', "./docker")
+                 docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
+                 customImage.push("${env.BUILD_NUMBER}")
              
              
 			       
