@@ -7,14 +7,14 @@ pipeline {
 	  stages {
               stage('Build maven ') {
                    steps {      
-                     sh 'mvn  clean install package'
+                     bat 'mvn  clean install package'
                     }
                  }
         
               stage('Copy Artifact') {
                    steps { 
                 
-		     sh 'cp -r target/*.jar docker'
+		     bat 'cp -r target/*.jar docker'
                     }
                  }
          
@@ -26,7 +26,7 @@ pipeline {
       }
       steps {
         script {
-            sh 'docker build -t ${DOCKER_IMAGE} ./docker'
+            bat 'docker build -t ${DOCKER_IMAGE} ./docker'
             def dockerImage = docker.image("${DOCKER_IMAGE}")
             docker.withRegistry('https://index.docker.io/v1/', "docker-cred") {
                 dockerImage.push()
