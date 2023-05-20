@@ -14,7 +14,7 @@ pipeline {
               stage('Copy Artifact') {
                    steps { 
                 
-		     bat 'copy target/*.jar docker'
+		     bat 'copy C:\ProgramData\Jenkins\.jenkins\workspace\petcline-application\target/*.jar C:\ProgramData\Jenkins\.jenkins\workspace\petcline-application\docker'
                     }
                  }
          
