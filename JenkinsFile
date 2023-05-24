@@ -4,7 +4,7 @@ pipeline {
       maven 'Maven'
       jdk 'JDK11'
     }
-	  stages {
+	stages {
               stage('Build maven ') {
                    steps {      
                      bat 'mvn  clean install package'
@@ -17,16 +17,20 @@ pipeline {
 		     bat 'copy C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\petcline-application\\target\\*.jar C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\petcline-application\\docker'
                     }
                  }
-         
-      stage('Build docker image') {
-           steps {
-               script {         
-                 def customImage = docker.build('kavyapallamreddy/petclinic', "./docker")
-                 docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
-                 customImage.push("${env.BUILD_NUMBER}")
-                 }                     
-           }
+      stage('Build and Push Docker Image') {
+      environment {
+        DOCKER_IMAGE = "KavyaPallamreddy/PetClinic_Application:${BUILD_NUMBER}"
+        REGISTRY_CREDENTIALS = credentials('docker-cred')
+      }
+      steps {
+        script {
+            docker build -t ${DOCKER_IMAGE} .'
+            def dockerImage = docker.image("${DOCKER_IMAGE}")
+            docker.withRegistry('', "docker-cred") {
+                dockerImage.push()
+            }
         }
-	  }    
+      }
+    }
 }
 }
