@@ -24,10 +24,10 @@ pipeline {
       }
       steps {
         script {
-            docker build -t ${DOCKER_IMAGE} .'
-            def dockerImage = docker.image("${DOCKER_IMAGE}")
-            docker.withRegistry('', "docker-cred") {
-                dockerImage.push()
+            bat 'docker build -t ${DOCKER_IMAGE} ./docker'
+            bat 'def dockerImage = docker.image("${DOCKER_IMAGE}")'
+            bat 'docker.withRegistry('', "docker-cred")' {
+            bat 'dockerImage.push()'
             }
         }
       }
