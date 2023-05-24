@@ -35,9 +35,11 @@ pipeline {
       
       steps {
         script {
-            	 def customImage = docker.build('kavyapallamreddy/petclinic-application-cicd', "./docker")
+            	 def customImage = docker.build('kavyapallamreddy/petclinic-application', "./docker")
                  docker.withRegistry('https://registry.hub.docker.com', 'docker-cred') {
                  customImage.push("${env.BUILD_NUMBER}")
+		 bat 'docker run -d -p 8010:8080 -t kavyapallamreddy/petclinic-application:${env.BUILD_NUMBER}'
+		 
             }
         }
       }
