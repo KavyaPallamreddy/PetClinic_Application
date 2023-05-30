@@ -10,21 +10,25 @@ pipeline {
                bat 'mvn  clean install package'
               }
         }
-     stage("build & SonarQube analysis") {
-            steps {
-              withSonarQubeEnv(credentialsId: 'sonarqube') {
-                bat 'mvn clean package sonar:sonar'
-              }
+	  stage('Static code analysis'){
+            steps{
+                script{
+                    withSonarQubeEnv(credentialsId: 'sonarqube') {
+                        sh 'mvn clean package sonar:sonar'
+                    }
+                   }
+                }
             }
-	    }
-     stage("Quality Gate") {
+	  stage("Quality Gate") {
             steps {
-              timeout(time: 1, unit: 'HOURS') {
+			  script{
+                timeout(time: 1, unit: 'HOURS') {
                 waitForQualityGate abortPipeline: true
               }
             }
           }
-     /* stage('Copy Artifact') {
+       }		  
+      stage('Copy Artifact') {
         steps {         
 		     bat 'copy C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\petcline-application\\target\\*.jar C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\petcline-application\\docker'
                     }
@@ -40,6 +44,6 @@ pipeline {
 		           }
                 }
             }
-          }*/
+          }
     }
 }
