@@ -32,6 +32,15 @@ pipeline {
                      sh 'mvn  clean install package'
                     }
                  }
+	     stage('Static code analysis'){
+               steps{
+                script{
+                    withSonarQubeEnv(credentialsId: 'sonarqube') {
+                        sh 'mvn clean package sonar:sonar'
+                    }
+                   }
+                }
+            }
         
               stage('Copy Artifact') {
                    steps { 
