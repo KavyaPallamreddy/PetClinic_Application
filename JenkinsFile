@@ -5,48 +5,37 @@ pipeline {
       jdk 'JDK11'
     }
 	stages {
-              stage('Build maven ') {
-                   steps {      
-                     bat 'mvn  clean install package'
-                    }
-                 }
-	  stage('Static code analysis'){
-	   environment {
-        SONAR_URL = "http://localhost:9000"
+      stage('Build maven ') {
+        steps {      
+               bat 'mvn  clean install package'
+              }
+        }
+      stage('Static Code Analysis') {
+        environment {
+         SONAR_URL = "http://localhost:9000"
+       }
+        steps {
+        withCredentials([string(credentialsId: 'sonarqube', variable: 'SONAR_AUTH_TOKEN')]) {
+          bat 'mvn sonar:sonar -Dsonar.login=$SONAR_AUTH_TOKEN -Dsonar.host.url=${SONAR_URL}'
+        }
       }
-            
-            steps{
-                
-                script{
-                    
-                    withSonarQubeEnv(credentialsId: 'sonarqube',variable: 'SONAR_AUTH_TOKEN') {
-                        
-                        bat 'mvn clean install package'
-			bat ' mvn sonar:sonar -Dsonar.login=$SONAR_AUTH_TOKEN -Dsonar.host.url=${SONAR_URL}'
-                    }
-                   }
-                    
-                }
-            }
-        
-              stage('Copy Artifact') {
-                   steps { 
-                
+     }
+     /* stage('Copy Artifact') {
+        steps {         
 		     bat 'copy C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\petcline-application\\target\\*.jar C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\petcline-application\\docker'
                     }
                  }
       stage('Build and Push Docker Image') {
       
-      steps {
-        script {
+        steps {
+         script {
             	 def customImage = docker.build('kavyapallamreddy/petclinic-application', "./docker")
                  docker.withRegistry('https://registry.hub.docker.com', 'docker-cred') {
                  customImage.push("${env.BUILD_NUMBER}")
-		 bat 'docker run -d -p 8010:8080 -t kavyapallamreddy/petclinic-application:2'
-		 
+		         bat 'docker run -d -p 8010:8080 -t kavyapallamreddy/petclinic-application:2'
+		           }
+                }
             }
-        }
-      }
+          }*/
     }
-}
 }
