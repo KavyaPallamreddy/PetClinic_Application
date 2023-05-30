@@ -10,12 +10,13 @@ pipeline {
                bat 'mvn  clean install package'
               }
         }
-     stage("build & SonarQube analysis") 
+     stage("build & SonarQube analysis") {
             steps {
               withSonarQubeEnv(credentialsId: 'sonarqube') {
                 bat 'mvn clean package sonar:sonar'
               }
             }
+	    }
      stage("Quality Gate") {
             steps {
               timeout(time: 1, unit: 'HOURS') {
