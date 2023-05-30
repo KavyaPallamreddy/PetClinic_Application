@@ -11,14 +11,18 @@ pipeline {
                     }
                  }
 	  stage('Static code analysis'){
+	   environment {
+        SONAR_URL = "http://localhost:9000"
+      }
             
             steps{
                 
                 script{
                     
-                    withSonarQubeEnv(credentialsId: 'sonarqube') {
+                    withSonarQubeEnv(credentialsId: 'sonarqube',variable: 'SONAR_AUTH_TOKEN') {
                         
-                        bat 'mvn clean package sonar:sonar'
+                        bat 'mvn clean install package'
+			bat ' mvn sonar:sonar -Dsonar.login=$SONAR_AUTH_TOKEN -Dsonar.host.url=${SONAR_URL}'
                     }
                    }
                     
