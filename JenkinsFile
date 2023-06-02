@@ -48,7 +48,6 @@ stage('Build and Push Docker Image') {
             def dockerImage = docker.build("${env.DOCKER_IMAGE}","./docker")
             docker.withRegistry('https://registry.hub.docker.com', "docker-cred") {
             dockerImage.push()
-	    bat 'docker run -d -p 8010:8080 -t  ${env.DOCKER_IMAGE}'
             }
         }
       }
