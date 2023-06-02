@@ -39,8 +39,7 @@ pipeline {
 	    }*/
 stage('Build and Push Docker Image') {
       environment {
-        DOCKER_IMAGE = "kavyapallamreddy/petclinic-application:${BUILD_NUMBER}"
-        // DOCKERFILE_LOCATION = "java-maven-sonar-argocd-helm-k8s/spring-boot-app/Dockerfile"
+        DOCKER_IMAGE = "kavyapallamreddy/petclinic-application:${env.BUILD_NUMBER}"
         REGISTRY_CREDENTIALS = credentials('docker-cred')
       }
       steps {
