@@ -25,33 +25,20 @@ pipeline {
 		     bat 'copy C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\petcline-application\\target\\*.jar C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\petcline-application\\docker'
                     }
                  }
-      /*stage('Build and Push Docker Image') {
-      
-        steps {
+      stage('Build and Push Docker Image') {
+       environment {
+         DOCKER_IMAGE= "kavyapallamreddy/petclinic-application-cicd:${env.BUILD_NUMBER}"
+         REGISTRY_CREDENTIALS = credentials('docker-cred')
+      }
+       steps {
          script {
-            	 def customImage = docker.build('kavyapallamreddy/petclinic-application', "./docker")
+            	 def customImage = docker.build(${env.DOCKER_IMAGE}, "./docker")
                  docker.withRegistry('https://registry.hub.docker.com', 'docker-cred') {
-                 customImage.push("${env.BUILD_NUMBER}")
-		         bat 'docker run -d -p 8010:8080 -t kavyapallamreddy/petclinic-application:2'
+                 customImage.push()
+		      
 		           }
                 }
             }
-	    }*/
-stage('Build and Push Docker Image') {
-      environment {
-        DOCKER_IMAGE= "kavyapallamreddy/petclinic-application-cicd:${env.BUILD_NUMBER}"
-        REGISTRY_CREDENTIALS = credentials('docker-cred')
-      }
-      steps {
-        script {
-            bat "docker build -t ${env.DOCKER_IMAGE} ./docker"
-            def dockerImage = docker.image(${env.DOCKER_IMAGE})
-            docker.withRegistry('https://registry.hub.docker.com', "docker-cred") {
-            dockerImage.push()
-            }
-        }
-      }
-    }
-    
+	    }
     }
 }
