@@ -4,7 +4,14 @@ pipeline {
       maven 'Maven'
       jdk 'JDK11'
     }
-	stages {
+    environment {
+		AWS_ACCOUNT_ID="268360024445"
+		AWS_DEFAULT_REGION="us-west-2"
+		IMAGE_REPO_NAME="petclinic-application"
+		IMAGE_TAG="latest"
+		REPOSITORY_URI = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}"
+	            }
+    stages {
       stage('Build maven ') {
         steps {      
                bat 'mvn  clean install package'
@@ -25,7 +32,7 @@ pipeline {
 		     bat 'copy C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\petcline-application\\target\\*.jar C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\petcline-application\\docker'
                     }
                  }
-      stage('Build and Push Docker Image') {
+      /*stage('Build and Push Docker Image') {
        environment {
          DOCKER_IMAGE= "kavyapallamreddy/petclinic-application-cicd:${env.BUILD_NUMBER}"
          REGISTRY_CREDENTIALS = credentials('docker-cred')
@@ -39,6 +46,34 @@ pipeline {
 		           }
                 }
             }
-	    }
+	    }*/
+	    stage('Logging into AWS ECR') {		
+		      steps {
+			   
+		       script {
+			      withCredentials([[
+					$class: 'AmazonWebServicesCredentialsBinding',
+					credentialsId: 'aws-cred',
+					accesKeyVariable: 'AWS_ACCESS_KEY_ID',
+					secretKetVariable: 'AWS_SECRET_ACCESS_KEY']]){
+			      
+			      bat "aws ecr get-login-password --region ${AWS_DEFAULT_REGION} | docker login --username AWS --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com"
+			       
+			      } 
+		       }
+
+			}
+	        }
+              // Uploading Docker images into AWS ECR
+	      stage('Pushing to ECR') {
+		   steps{
+		       script {
+			       bat "docker tag ${IMAGE_REPO_NAME}:${IMAGE_TAG} ${REPOSITORY_URI}:$IMAGE_TAG"
+			       bat "docker push ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}:${IMAGE_TAG}"
+			       
+			       }
+			    }
+			}
+		  
     }
 }
