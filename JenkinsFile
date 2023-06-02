@@ -35,8 +35,9 @@ pipeline {
 		         bat 'docker run -d -p 8010:8080 -t kavyapallamreddy/petclinic-application:2'
 		           }
                 }
-            }*/
-	    stage('Build and Push Docker Image') {
+            }
+	    }
+stage('Build and Push Docker Image') {
       environment {
         DOCKER_IMAGE = "kavyapallamreddy/petclinic-application:${BUILD_NUMBER}"
         // DOCKERFILE_LOCATION = "java-maven-sonar-argocd-helm-k8s/spring-boot-app/Dockerfile"
@@ -52,6 +53,6 @@ pipeline {
         }
       }
     }
-          }
+          
     }
 }
