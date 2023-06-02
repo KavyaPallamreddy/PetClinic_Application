@@ -32,7 +32,7 @@ pipeline {
       }
        steps {
          script {
-            	 def customImage = docker.build(${env.DOCKER_IMAGE}, "./docker")
+            	 def customImage = docker.build("${env.DOCKER_IMAGE}", "./docker")
                  docker.withRegistry('https://registry.hub.docker.com', 'docker-cred') {
                  customImage.push()
 		      
