@@ -25,7 +25,7 @@ pipeline {
 		     bat 'copy C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\petcline-application\\target\\*.jar C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\petcline-application\\docker'
                     }
                  }
-      stage('Build and Push Docker Image') {
+      /*stage('Build and Push Docker Image') {
       
         steps {
          script {
@@ -35,7 +35,23 @@ pipeline {
 		         bat 'docker run -d -p 8010:8080 -t kavyapallamreddy/petclinic-application:2'
 		           }
                 }
+            }*/
+	    stage('Build and Push Docker Image') {
+      environment {
+        DOCKER_IMAGE = "kavyapallamreddy/petclinic-application:${BUILD_NUMBER}"
+        // DOCKERFILE_LOCATION = "java-maven-sonar-argocd-helm-k8s/spring-boot-app/Dockerfile"
+        REGISTRY_CREDENTIALS = credentials('docker-cred')
+      }
+      steps {
+        script {
+            bat 'docker build -t ${DOCKER_IMAGE} ./docker'
+            def dockerImage = docker.image("${DOCKER_IMAGE}")
+            docker.withRegistry('https://registry.hub.docker.com', "docker-cred") {
+                dockerImage.push()
             }
+        }
+      }
+    }
           }
     }
 }
