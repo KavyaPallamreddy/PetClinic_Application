@@ -47,15 +47,20 @@ pipeline {
                 }
             }
 	    }*/
+	    stage('Build docker image') {
+                   steps {
+                      script { 
+			 bat "docker build -t ${IMAGE_REPO_NAME} ./docker"
+			
+			   }
+			   }
+			   }
+			   
 	    stage('Logging into AWS ECR') {		
 		      steps {
 			   
 		       script {
-			      withCredentials([[
-					$class: 'AmazonWebServicesCredentialsBinding',
-					credentialsId: 'aws-cred',
-					accesKeyVariable: 'AWS_ACCESS_KEY_ID',
-					secretKetVariable: 'AWS_SECRET_ACCESS_KEY']]){
+			       withAWS(credentials: 'aws-cred', region: 'us-west-2') {
 			      
 			      bat "aws ecr get-login-password --region ${AWS_DEFAULT_REGION} | docker login --username AWS --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com"
 			       
