@@ -1,0 +1,88 @@
+pipeline {
+  agent any
+    tools {
+      maven 'Maven'
+      jdk 'JDK11'
+    }
+    environment {
+		AWS_ACCOUNT_ID="268360024445"
+		AWS_DEFAULT_REGION="us-west-2"
+		IMAGE_REPO_NAME="petclinic-application"
+		IMAGE_TAG="latest"
+		REPOSITORY_URI = "${env.AWS_ACCOUNT_ID}.dkr.ecr.${env.AWS_DEFAULT_REGION}.amazonaws.com/${env.IMAGE_REPO_NAME}"
+		
+	}
+    stages {
+	  stage('Checkout') {
+       steps {
+        //git branch: 'main', url: 'https://github.com/KavyaPallamreddy/PetClinic_Application.git'
+      }
+    }
+      stage('Build maven ') {
+        steps {      
+               bat 'mvn  clean install package'
+              }
+        }
+		
+	   stage('Static code analysis'){
+            steps{
+                script{
+                    withSonarQubeEnv(credentialsId: 'sonarqube') {
+                        bat 'mvn clean package sonar:sonar'
+                    }
+                   }
+                }
+            }
+	  
+      stage('Copy Artifact') {
+        steps {         
+		     bat 'copy C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\petcline-application\\target\\*.jar C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\petcline-application\\docker'
+                    }
+                 }
+	 
+      stage('Loging to ecr') {
+            steps {
+                script{
+		     withAWS(credentials: 'aws-cred', region: 'us-west-2') {
+                     bat "aws ecr get-login-password --region ${env.AWS_DEFAULT_REGION} | docker login --username AWS --password-stdin ${env.AWS_ACCOUNT_ID}.dkr.ecr.${env.AWS_DEFAULT_REGION}.amazonaws.com"
+                    
+                      }
+                    }
+                }
+            }
+      stage('Build docker image') {
+                   steps {
+                      script { 
+			          bat "docker build -t ${env.IMAGE_REPO_NAME}:${IMAGE_TAG}-${env.BUILD_NUMBER} ./docker"
+			
+			   }                     
+                    }
+              }
+      // Uploading Docker images into AWS ECR
+	  stage('Pushing to ECR') {
+		   steps{
+		       script {
+			       bat "docker tag ${IMAGE_REPO_NAME}:${env.BUILD_NUMBER} ${REPOSITORY_URI}:${IMAGE_TAG}-${env.BUILD_NUMBER}"
+			       bat "docker push ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}:${IMAGE_TAG}-${env.BUILD_NUMBER}"
+			       
+			       }
+			    }
+			}
+	/* Uploading Docker images into AWS ECR		
+      stage('Build and Push Docker Image') {
+       environment {
+         DOCKER_IMAGE= "kavyapallamreddy/petclinic-application-cicd:${env.BUILD_NUMBER}"
+         REGISTRY_CREDENTIALS = credentials('docker-cred')
+      }
+       steps {
+         script {
+            	 def customImage = docker.build("${env.DOCKER_IMAGE}", "./docker")
+                 docker.withRegistry('https://registry.hub.docker.com', 'docker-cred') {
+                 customImage.push()
+		      
+		           }
+                }
+            }
+	    }*/
+    }
+}
