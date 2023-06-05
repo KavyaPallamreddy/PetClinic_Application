@@ -13,6 +13,12 @@ pipeline {
 		
 	}
     stages {
+     stage('Checkout') {
+       steps {
+        bat 'echo passed'
+        //git branch: 'main', url: 'https://github.com/KavyaPallamreddy/PetClinic_Application.git'
+      }
+    }
 	  
       stage('Build maven ') {
         steps {      
