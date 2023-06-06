@@ -22,4 +22,4 @@ spec:
         image: kavyapallamreddy/petclinic-application:3
         imagePullPolicy: Always
         ports:
-        - containerPort: 8081
+        - containerPort: 8080
