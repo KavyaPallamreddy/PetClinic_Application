@@ -3,37 +3,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: petclinic-deployment
+  name: peclinic-app
+  labels:
+    app: peclinic-app
 spec:
-  replicas: 1
-  strategy:
-    type: RollingUpdate
-    rollingUpdate:
-  minReadySeconds: 5
-  revisionHistoryLimit: 10
+  replicas: 2
   selector:
     matchLabels:
-      app: petclinic-app
+      app: peclinic-app
   template:
     metadata:
       labels:
-        app: petclinic-app
+        app: peclinic-app
     spec:
       containers:
-      - name: petclinic-container
+      - name: peclinic-app
         image: 268360024445.dkr.ecr.us-west-2.amazonaws.com/petclinic-application:latest-17
-        imagePullPolicy: Always
-        resources:
-          limits:
-            cpu: '1'
-            memory: '500Mi'
-          requests:
-            cpu: '1'
-            memory: '500Mi'
         ports:
-        - containerPort: 8080
-      imagePullSecrets:
-      - name: regcred
-
-
-
+        - containerPort: 8081
