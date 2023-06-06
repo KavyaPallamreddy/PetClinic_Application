@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
       - name: petclinic-container
-        image: 268360024445.dkr.ecr.us-west-2.amazonaws.com/replaceImageRepo:replaceImageTag
+        image: 268360024445.dkr.ecr.us-west-2.amazonaws.com/petclinic-application:latest-17
         imagePullPolicy: Always
         resources:
           limits:
