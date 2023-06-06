@@ -86,5 +86,21 @@ pipeline {
                 }
             }
 	    }*/
+	    stage('Update Deployment File') {
+        	steps {
+            		script {
+                	withCredentials([gitUsernamePassword(credentialsId: 'github', gitToolName: 'Default')]) {
+                	bat """
+			  git config user.email "kavyareddy41997@gmail.com"
+			  git config user.name "KavyaPallamreddy"
+			  sed -i "s/replaceImageRepo:replaceImageTag/${IMAGE_REPO_NAME}:${IMAGE_TAG}-${BUILD_NUMBER}/g" helm/petclinic/templates/deployment.yaml
+			  git add helm/petclinic/templates/deployment.yaml
+			  git commit -m "Update deployment image to version ${env.IMAGE_TAG}-${env.BUILD_NUMBER}"
+			  git push -u origin main
+		     """
+           		 	}
+            		}
+       		 }
+   	 }
     }
 }
