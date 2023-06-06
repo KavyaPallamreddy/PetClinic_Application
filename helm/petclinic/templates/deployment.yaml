@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: peclinic-app
-        image: 268360024445.dkr.ecr.us-west-2.amazonaws.com/petclinic-application:latest-7
+        image: 268360024445.dkr.ecr.us-west-2.amazonaws.com/petclinic-application:latest-10
         # image: kavyapallamreddy/petclinic-application:3
         imagePullPolicy: Always
         ports:
