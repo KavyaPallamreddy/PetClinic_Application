@@ -19,6 +19,7 @@ spec:
       containers:
       - name: peclinic-app
         image: 268360024445.dkr.ecr.us-west-2.amazonaws.com/petclinic-application:latest-11
+        command: ['bat', '-c', 'echo Container is Running ; sleep 3600']
         # image: kavyapallamreddy/petclinic-application:3
         imagePullPolicy: Always
         ports:
