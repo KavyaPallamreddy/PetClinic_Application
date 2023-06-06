@@ -55,7 +55,7 @@ pipeline {
       stage('Build docker image') {
                    steps {
                       script { 
-			          bat "docker build -t ${env.IMAGE_REPO_NAME}:${IMAGE_TAG}-${env.BUILD_NUMBER} ./docker"
+			          bat "docker build -t ${env.IMAGE_REPO_NAME}:${env.BUILD_NUMBER} ./docker"
 			
 			   }                     
                     }
