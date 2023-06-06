@@ -51,6 +51,6 @@ spec:
             labels:
               argocd.argoproj.io/secret-type: repository
           stringData:
-            url: 133696059149.dkr.ecr.us-east-1.amazonaws.com
+            url: 268360024445.dkr.ecr.us-west-2.amazonaws.com
             username: AWS
             password: {{inputs.parameters.password}}
