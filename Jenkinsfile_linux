@@ -1,39 +1,35 @@
 pipeline {
-	agent any
-	  tools {
-                 maven 'Maven'
-                 jdk 'JDK11'
-               }
-	  environment {
+  agent any
+    tools {
+      maven 'Maven'
+      jdk 'JDK11'
+    }
+    environment {
 		AWS_ACCOUNT_ID="268360024445"
 		AWS_DEFAULT_REGION="us-west-2"
 		IMAGE_REPO_NAME="petclinic-application"
 		IMAGE_TAG="latest"
-		REPOSITORY_URI = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}"
-	            }
-
-	  stages {
-
-	      stage('Logging into AWS ECR') {		
-		   steps {
-			   
-		       script {
-			      
-			      sh "aws ecr get-login-password --region ${AWS_DEFAULT_REGION} | docker login --username AWS --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com"
-			       
-			       
-		       }
-
-			}
-	        }
-              stage('Build maven ') {
-                   steps { 
-                     sh 'pwd'      
-                     sh 'mvn  clean install package'
-                    }
-                 }
-	     stage('Static code analysis'){
-               steps{
+		REPOSITORY_URI = "${env.AWS_ACCOUNT_ID}.dkr.ecr.${env.AWS_DEFAULT_REGION}.amazonaws.com/${env.IMAGE_REPO_NAME}"
+		DOCKER_USER_NAME="kavyapallamreddy"
+		DOCKER_IMAGE= "${DOCKER_USER_NAME}/${IMAGE_REPO_NAME}:${env.BUILD_NUMBER}"
+                REGISTRY_CREDENTIALS = credentials('docker-cred')
+	}
+    stages {
+     stage('Checkout') {
+       steps {
+        sh 'echo passed'
+        //git branch: 'main', url: 'https://github.com/KavyaPallamreddy/PetClinic_Application.git'
+      }
+    }
+	  
+      stage('Build maven ') {
+        steps {      
+               sh 'mvn  clean install package'
+              }
+        }
+		
+	   stage('Static code analysis'){
+            steps{
                 script{
                     withSonarQubeEnv(credentialsId: 'sonarqube') {
                         sh 'mvn clean package sonar:sonar'
@@ -41,64 +37,73 @@ pipeline {
                    }
                 }
             }
-        
-              stage('Copy Artifact') {
-                   steps { 
-                     sh 'pwd'
-		     sh 'cp -r target/*.jar docker'
+	  
+      stage('Copy Artifact') {
+        steps {         
+		     sh 'copy 
                     }
                  }
-         
-              stage('Build docker image') {
+	 
+      /*stage('Loging to ecr') {
+            steps {
+                script{
+		     withAWS(credentials: 'aws-cred', region: 'us-west-2') {
+                     sh "aws ecr get-login-password --region ${env.AWS_DEFAULT_REGION} | docker login --username AWS --password-stdin ${env.AWS_ACCOUNT_ID}.dkr.ecr.${env.AWS_DEFAULT_REGION}.amazonaws.com"
+                    
+                      }
+                    }
+                }
+            }
+      stage('Build docker image') {
                    steps {
                       script { 
-			 sh "docker build -t ${IMAGE_REPO_NAME} ./docker"
+			          sh "docker build -t ${env.IMAGE_REPO_NAME}:${env.BUILD_NUMBER} ./docker"
 			
 			   }                     
                     }
               }
-              // Uploading Docker images into AWS ECR
-	      stage('Pushing to ECR') {
+      // Uploading Docker images into AWS ECR
+	  stage('Pushing to ECR') {
 		   steps{
 		       script {
-			       sh "docker tag ${IMAGE_REPO_NAME}:${IMAGE_TAG} ${REPOSITORY_URI}:$IMAGE_TAG"
-			       sh "docker push ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}:${IMAGE_TAG}"
+			       sh "docker tag ${IMAGE_REPO_NAME}:${env.BUILD_NUMBER} ${REPOSITORY_URI}:${IMAGE_TAG}-${env.BUILD_NUMBER}"
+			       sh "docker push ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}:${IMAGE_TAG}-${env.BUILD_NUMBER}"
 			       
 			       }
 			    }
-			}
-		  /* Uploading Docker images into AWS ECR		
-		      stage('Build and Push Docker Image') {
-		       environment {
-			 DOCKER_IMAGE= "kavyapallamreddy/petclinic-application-cicd:${env.BUILD_NUMBER}"
-			 REGISTRY_CREDENTIALS = credentials('docker-cred')
-		      }
-		       steps {
-			 script {
-				 def customImage = docker.build("${env.DOCKER_IMAGE}", "./docker")
-				 docker.withRegistry('https://registry.hub.docker.com', 'docker-cred') {
-				 customImage.push()
-
-					   }
-				}
-			    }
-			    }*/
+			}*/
+ // Uploading Docker images into DockerHub		
+      stage('Build and Push Docker Image') {
+       steps {
+         script {
+            	 def customImage = docker.build("${env.DOCKER_IMAGE}", "./docker")
+                 docker.withRegistry('https://registry.hub.docker.com', 'docker-cred') {
+                 customImage.push()
+		      
+		           }
+                }
+            }
+	    }
 	    stage('Update Deployment File') {
+	    environment {
+            GIT_REPO_NAME = "PetClinic_Application"
+            GIT_USER_NAME = "KavyaPallamreddy"
+        }
         	steps {
             		script {
-                	withCredentials([gitUsernamePassword(credentialsId: 'github', gitToolName: 'Default')]) {
+                	withCredentials([string(credentialsId: 'github-cred', variable: 'GITHUB_TOKEN')])  {
                 	sh """
 			  git config user.email "kavyareddy41997@gmail.com"
 			  git config user.name "KavyaPallamreddy"
-			  sed -i "s/replaceImageRepo:replaceImageTag/${IMAGE_REPO_NAME}:${IMAGE_TAG}-${BUILD_NUMBER}/g" helm/petclinic/templates/deployment.yaml
+			  
+			  sed -i "s+${DOCKER_USER_NAME}/${IMAGE_REPO_NAME}.*+${DOCKER_USER_NAME}/${IMAGE_REPO_NAME}:${BUILD_NUMBER}+g" helm/petclinic/templates/deployment.yaml
 			  git add helm/petclinic/templates/deployment.yaml
-			  git commit -m "Update deployment image to version ${env.IMAGE_TAG}-${env.BUILD_NUMBER}"
-			  git push -u origin main
+			  git commit -m "Update deployment image to version ${DOCKER_USER_NAME}/${IMAGE_REPO_NAME}:${BUILD_NUMBER}"
+			  git push https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:main
 		     """
            		 	}
             		}
        		 }
    	 }
-          
-	  }
+    }
 }
