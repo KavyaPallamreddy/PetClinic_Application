@@ -42,7 +42,7 @@ pipeline {
                     }
                  }
 	 
-      stage('Loging to ecr') {
+      /*stage('Loging to ecr') {
             steps {
                 script{
 		     withAWS(credentials: 'aws-cred', region: 'us-west-2') {
@@ -69,11 +69,12 @@ pipeline {
 			       
 			       }
 			    }
-			}
-	/* Uploading Docker images into AWS ECR		
+			}*/
+	 Uploading Docker images into AWS ECR		
       stage('Build and Push Docker Image') {
        environment {
-         DOCKER_IMAGE= "kavyapallamreddy/petclinic-application-cicd:${env.BUILD_NUMBER}"
+         DOCKER_USER_NAME="kavyapallamreddy"
+         DOCKER_IMAGE= "${DOCKER_USER_NAME}/${IMAGE_REPO_NAME}:${env.BUILD_NUMBER}"
          REGISTRY_CREDENTIALS = credentials('docker-cred')
       }
        steps {
@@ -85,7 +86,7 @@ pipeline {
 		           }
                 }
             }
-	    }*/
+	    }
 	    stage('Update Deployment File') {
 	    environment {
             GIT_REPO_NAME = "PetClinic_Application"
@@ -97,7 +98,8 @@ pipeline {
                 	bat """
 			  git config user.email "kavyareddy41997@gmail.com"
 			  git config user.name "KavyaPallamreddy"
-			  sed -i "s/${IMAGE_REPO_NAME}:${IMAGE_TAG}.*/${IMAGE_REPO_NAME}:${IMAGE_TAG}-${BUILD_NUMBER}/g" helm/petclinic/templates/deployment.yaml
+			  //sed -i "s/${IMAGE_REPO_NAME}:${IMAGE_TAG}.*/${IMAGE_REPO_NAME}:${IMAGE_TAG}-${BUILD_NUMBER}/g" helm/petclinic/templates/deployment.yaml
+			  sed -i "s/${DOCKER_USER_NAME}/${IMAGE_REPO_NAME}.*/{DOCKER_USER_NAME}/${IMAGE_REPO_NAME}:${BUILD_NUMBER}/g" helm/petclinic/templates/deployment.yaml
 			  git add helm/petclinic/templates/deployment.yaml
 			  git commit -m "Update deployment image to version ${env.IMAGE_TAG}-${env.BUILD_NUMBER}"
 			  git push https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:main
