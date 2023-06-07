@@ -70,7 +70,7 @@ pipeline {
 			       }
 			    }
 			}*/
- Uploading Docker images into DockerHub		
+ // Uploading Docker images into DockerHub		
       stage('Build and Push Docker Image') {
        environment {
          DOCKER_USER_NAME="kavyapallamreddy"
