@@ -70,7 +70,7 @@ pipeline {
 			       }
 			    }
 			}*/
-	 Uploading Docker images into AWS ECR		
+ Uploading Docker images into AWS ECR		
       stage('Build and Push Docker Image') {
        environment {
          DOCKER_USER_NAME="kavyapallamreddy"
