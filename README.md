@@ -110,7 +110,7 @@ This end-to-end Jenkins pipeline will automate the entire CI/CD process for a Ja
 ### Running petclinic
 
 ### Output
-You can then access petclinic here: http://<ipaddress>:31283/
+You can then access petclinic here: http://<ip-address>:31283 
 
 <img width="1042" alt="petclinic-screenshot" src="https://cloud.githubusercontent.com/assets/838318/19727082/2aee6d6c-9b8e-11e6-81fe-e889a5ddfded.png">
 
