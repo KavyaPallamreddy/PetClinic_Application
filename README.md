@@ -56,7 +56,7 @@ Here are the step-by-step details to set up an end-to-end Jenkins pipeline for a
           cd sonarqube-9.4.0.54424/bin/linux-x86-64/
           ./sonar.sh start
 
-## 4. Jenkins:
+## 5. Jenkins:
          1. Log in to the Jenkins server and configure Jenkins by Install the necessary Jenkins plugins:
             1.1 Git plugin
             1.2 Maven Integration plugin
@@ -107,10 +107,10 @@ This end-to-end Jenkins pipeline will automate the entire CI/CD process for a Ja
  
 
 
-### Running petclinic locally
+### Running petclinic
 
-
-You can then access petclinic here: http://localhost:31283/
+### Output
+You can then access petclinic here: http://<ipaddress>:31283/
 
 <img width="1042" alt="petclinic-screenshot" src="https://cloud.githubusercontent.com/assets/838318/19727082/2aee6d6c-9b8e-11e6-81fe-e889a5ddfded.png">
 
