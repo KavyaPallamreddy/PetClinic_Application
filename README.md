@@ -45,6 +45,16 @@ Here are the step-by-step details to set up an end-to-end Jenkins pipeline for a
             2.2 Jenkins
             2.3 Docker
             2.4 Maven
+## 4. Sonarqube:
+      1. configure the Sonarqube locally
+          apt install unzip
+          adduser sonarqube
+          wget https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-9.4.0.54424.zip
+          unzip *
+          chmod -R 755 /home/sonarqube/sonarqube-9.4.0.54424
+          chown -R sonarqube:sonarqube /home/sonarqube/sonarqube-9.4.0.54424
+          cd sonarqube-9.4.0.54424/bin/linux-x86-64/
+          ./sonar.sh start
 
 ## 4. Jenkins:
          1. Log in to the Jenkins server and configure Jenkins by Install the necessary Jenkins plugins:
