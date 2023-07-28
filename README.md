@@ -8,7 +8,7 @@
 
 I created a pet-clinic project to automate the end to end process of creating the AWS infrastructure, continuously integrate and deploy the application to AWS EKS Kubernetes Cluster
 ## DEVOPS Continuous integration and Continuous deployment
-![image](https://github.com/KavyaPallamreddy/PetClinic_Application/assets/116321339/18ce7738-ad7a-4dbb-813c-64d04b20d07e)
+![image](https://github.com/KavyaPallamreddy/PetClinic_Application/assets/116321339/9ad0eac0-d018-4564-bfed-94e202e98c99)
 
 
 ## Prerequisites
